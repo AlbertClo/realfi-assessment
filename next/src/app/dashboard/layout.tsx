@@ -22,8 +22,8 @@ const user = {
   email: 'name@example.com',
 }
 const navigation = [
-  { name: 'Users', href: '/dashboard/users', current: true },
-  { name: 'Charts', href: '/dashboard/charts', current: false },
+  { name: 'Users', href: '/dashboard/users'},
+  { name: 'Overview', href: '/dashboard/overview'},
 ]
 const userNavigation = [
   { name: 'Sign out', href: '#' },
