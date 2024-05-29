@@ -1,16 +1,31 @@
 'use client'
 
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Chart } from "react-google-charts";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Users() {
+  const [selectedGender, setSelectedGender] = useState<string>("all");
+
   return (
     <>
       <div className="">
         <div className="pb-32">
           <header className="py-10">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <h1 className="text-3xl font-bold tracking-tight text-white">Overview</h1>
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-row">
+              <h1 className="text-3xl font-bold tracking-tight text-white flex-grow">Overview</h1>
+              <div className="text-white">
+                <Select value={selectedGender} onValueChange={setSelectedGender}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Gender"/>
+                  </SelectTrigger>
+                  <SelectContent >
+                    <SelectItem value="all">All Genders</SelectItem>
+                    <SelectItem value="male">Male</SelectItem>
+                    <SelectItem value="female">Female</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </header>
         </div>
