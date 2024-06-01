@@ -1,30 +1,24 @@
 "use client";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { people } from "@/data/users";
-import React, { useMemo, useState } from "react";
+import { DEPENDANTS_PER_COUNTRY } from "@/dataConnections/hasura/queries/dependantsPerCountry";
+import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import { Chart } from "react-google-charts";
 
 export default function Users() {
-  const [selectedGender, setSelectedGender] = useState<string>("all");
+  const [selectedGender, setSelectedGender] = useState<string>("All");
 
-  type DependentsByCountryArray = [string, number][];
-
-  const dependentsPerCountry = useMemo(() => {
-    return people.reduce<DependentsByCountryArray>((acc, person) => {
-      const countryIndex = acc.findIndex(([country]) => country === person.country);
-      if (selectedGender === "all" || person.gender.toLowerCase() === selectedGender) {
-        if (countryIndex !== -1) {
-          acc[countryIndex][1] += person.dependants;
-        } else {
-          acc.push([person.country, person.dependants]);
-        }
-      }
-      return acc;
-    }, []);
-  }, [selectedGender]);
-
-
+  const {data, loading, error} = useQuery(DEPENDANTS_PER_COUNTRY, {
+    variables: {gender: selectedGender},
+  });
+  type DependentsByCountryItem = [string, number];
+  let dependentsPerCountry: DependentsByCountryItem[] = [["", 0]];
+  if (!loading && !error) {
+    dependentsPerCountry = data.dependants_per_country.map((item: any): DependentsByCountryItem => {
+      return [item.country, item.sum_of_dependants];
+    });
+  }
 
   return (
     <>
@@ -39,9 +33,9 @@ export default function Users() {
                     <SelectValue placeholder="Gender"/>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Genders</SelectItem>
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
+                    <SelectItem value="All">All Genders</SelectItem>
+                    <SelectItem value="Male">Male</SelectItem>
+                    <SelectItem value="Female">Female</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -61,7 +55,7 @@ export default function Users() {
                   height="300px"
                   options={{
                     animation: {
-                      duration: 500,
+                      duration: 300,
                       easing: "inAndOut"
                     },
                     colors: ["#0891b2"],

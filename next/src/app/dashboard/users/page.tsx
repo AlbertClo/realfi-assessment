@@ -1,8 +1,38 @@
 "use client";
 
-import { people } from "@/data/users";
+import { USERS } from "@/dataConnections/hasura/queries/getUsers";
+import { useQuery } from "@apollo/client";
 
 export default function Users() {
+  const {data, loading, error} = useQuery(USERS);
+
+  type User = {
+    id: number;
+    name: string;
+    surname: string;
+    number: number;
+    gender: "Male" | "Female";
+    country: string;
+    dependants: number;
+    dateOfBirth: Date;
+  };
+
+  let users: User[] = [];
+  if (!loading && !error) {
+    users = data.users.map((u: any): User => {
+      return {
+        id: u.id,
+        name: u.name,
+        surname: u.surname,
+        number: u.number,
+        gender: u.gender,
+        country: u.country,
+        dependants: u.dependants,
+        dateOfBirth: new Date(u.date_of_birth),
+      };
+    });
+  }
+
   return (
     <>
       <div className="">
@@ -47,17 +77,24 @@ export default function Users() {
                       </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200">
-                      {people.map((person) => (
-                        <tr key={person.id}>
+                      {loading && <tr>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                          Loading...
+                        </td>
+                      </tr>}
+                      {users.map((user: User) => (
+                        <tr key={user.id}>
                           <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                            {person.name}
+                            {user.name}
                           </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.surname}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.number}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.gender}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.country}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.dependants}</td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{person.birthDate}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.surname}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.number}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.gender}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.country}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.dependants}</td>
+                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{
+                            new Intl.DateTimeFormat("en-GB", {dateStyle: "short"}).format(user.dateOfBirth)
+                          }</td>
                         </tr>
                       ))}
                       </tbody>
