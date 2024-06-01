@@ -8,6 +8,7 @@ import {
   DisclosurePanel,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 function classNames(...classes: string[]) {
@@ -41,7 +42,7 @@ export default function RootLayout({
                       <div className="hidden md:block">
                         <div className="flex items-baseline space-x-4">
                           {navigation.map((item) => (
-                            <a
+                            <Link
                               key={item.name}
                               href={item.href}
                               className={classNames(
@@ -53,7 +54,7 @@ export default function RootLayout({
                               aria-current={item.href === pathname ? "page" : undefined}
                             >
                               {item.name}
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
@@ -77,7 +78,7 @@ export default function RootLayout({
               <DisclosurePanel className="border-b border-gray-700 md:hidden">
                 <div className="space-y-1 px-2 py-3 sm:px-3">
                   {navigation.map((item) => (
-                    <DisclosureButton
+                    <Link
                       key={item.name}
                       as="a"
                       href={item.href}
@@ -88,7 +89,7 @@ export default function RootLayout({
                       aria-current={item.href === pathname ? "page" : undefined}
                     >
                       {item.name}
-                    </DisclosureButton>
+                    </Link>
                   ))}
                 </div>
               </DisclosurePanel>
