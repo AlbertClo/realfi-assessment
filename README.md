@@ -1,5 +1,7 @@
 # RealFi Assessment
 
+The app is deployed here: https://realfi-assessment.vercel.app/dashboard/overview
+
 ### Local development
 
 Requires Node v18+.
