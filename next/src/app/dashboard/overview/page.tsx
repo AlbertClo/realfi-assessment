@@ -1,7 +1,9 @@
 "use client";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { AgeGroupsHistogram } from "@/components/visualizations/ageGroupsHistogram";
 import { DependantsPerCountry } from "@/components/visualizations/dependantsPerCountry";
+import { PointsByAgeScatter } from "@/components/visualizations/pointsByAgeScatter";
 import React, { useState } from "react";
 
 export default function Users() {
@@ -30,11 +32,10 @@ export default function Users() {
           </header>
         </div>
         <main className="-mt-32">
-          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 flex flex-col gap-6">
-            <DependantsPerCountry gender={selectedGender}/>
-            <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
-              <h2 className="text-l font-bold tracking-tight text-slate-800">Age Group Histogram</h2>
-            </div>
+          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 grid grid-cols-2 gap-6">
+            <DependantsPerCountry className="col-span-2" gender={selectedGender}/>
+            <AgeGroupsHistogram gender={selectedGender}/>
+            <PointsByAgeScatter gender={selectedGender}/>
           </div>
         </main>
       </div>

@@ -1,16 +1,16 @@
 import gql from "graphql-tag";
 
 export const USERS = gql`
-    query GetUsers {
-        users {
+    query UsersQuery($gender: String) {
+        users_query(args: {gender: $gender}) {
             id
             name
             surname
-            country
             number
+            country
             gender
-            date_of_birth
             dependants
+            date_of_birth
         }
     }
 `;

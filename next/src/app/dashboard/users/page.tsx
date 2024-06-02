@@ -1,10 +1,12 @@
 "use client";
 
-import { USERS } from "@/dataConnections/hasura/queries/getUsers";
+import { USERS } from "@/dataConnections/hasura/queries/users";
 import { useQuery } from "@apollo/client";
 
 export default function Users() {
-  const {data, loading, error} = useQuery(USERS);
+  const {data, loading, error} = useQuery(USERS, {
+    variables: {gender: "All"},
+  });
 
   type User = {
     id: number;
@@ -19,7 +21,7 @@ export default function Users() {
 
   let users: User[] = [];
   if (!loading && !error) {
-    users = data.users.map((u: any): User => {
+    users = data.users_query.map((u: any): User => {
       return {
         id: u.id,
         name: u.name,
@@ -93,7 +95,7 @@ export default function Users() {
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.country}</td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.dependants}</td>
                           <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{
-                            new Intl.DateTimeFormat("en-GB", {dateStyle: "short"}).format(user.dateOfBirth)
+                            new Intl.DateTimeFormat("en-ZA", {dateStyle: "short"}).format(user.dateOfBirth)
                           }</td>
                         </tr>
                       ))}
