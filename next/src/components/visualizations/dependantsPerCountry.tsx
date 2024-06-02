@@ -20,7 +20,7 @@ export const DependantsPerCountry = (props: { gender: string, className: string 
   return (
     <div className={twMerge(props.className, "rounded-lg bg-white px-5 py-6 shadow sm:px-6")}>
       <h2 className="text-l font-bold tracking-tight text-slate-800">Dependents per Country</h2>
-      <div className="flex flex-row gap-6">
+      <div className="flex lg:flex-row flex-col gap-6">
         <Chart
           className=""
           chartType="BarChart"

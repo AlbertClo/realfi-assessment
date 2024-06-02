@@ -32,8 +32,8 @@ export default function Users() {
           </header>
         </div>
         <main className="-mt-32">
-          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 grid grid-cols-2 gap-6">
-            <DependantsPerCountry className="col-span-2" gender={selectedGender}/>
+          <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 grid lg:grid-cols-2 grid-cols-1 gap-6">
+            <DependantsPerCountry className="lg:col-span-2" gender={selectedGender}/>
             <AgeGroupsHistogram gender={selectedGender}/>
             <PointsByAgeScatter gender={selectedGender}/>
           </div>

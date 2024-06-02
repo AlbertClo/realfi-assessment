@@ -80,7 +80,6 @@ export default function RootLayout({
                   {navigation.map((item) => (
                     <Link
                       key={item.name}
-                      as="a"
                       href={item.href}
                       className={classNames(
                         item.href === pathname ? "bg-slate-100 text-slate-900" : "text-gray-300 hover:bg-gray-700 hover:text-white",
