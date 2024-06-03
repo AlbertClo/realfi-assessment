@@ -14,11 +14,16 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the app.
 
+### Tests
+```bash
+cd next
+npm run test
+```
+
 ### Todo
 
 - [ ] Remove Hasura secrets from repo. Keys are currently included in the repo just to make local enviroment setup simpler.
 - [ ] Stop Hasura secret from being leaked in the client code. Use [AWS Cognito for authentication](https://hasura.io/docs/latest/auth/authentication/index/).  
-- [ ] Add tests.
 
 ### Screenshots
 

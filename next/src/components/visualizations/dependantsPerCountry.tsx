@@ -5,7 +5,6 @@ import { Chart } from "react-google-charts";
 import { twMerge } from "tailwind-merge";
 
 export const DependantsPerCountry = (props: { gender: string, className: string }) => {
-
   const {data, loading, error} = useQuery(DEPENDANTS_PER_COUNTRY, {
     variables: {gender: props.gender},
   });

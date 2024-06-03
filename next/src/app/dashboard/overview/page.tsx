@@ -6,7 +6,7 @@ import { DependantsPerCountry } from "@/components/visualizations/dependantsPerC
 import { PointsByAgeScatter } from "@/components/visualizations/pointsByAgeScatter";
 import React, { useState } from "react";
 
-export default function Users() {
+export default function Overview() {
   const [selectedGender, setSelectedGender] = useState<string>("All");
 
   return (

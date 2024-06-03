@@ -16,8 +16,6 @@ export const PointsByAgeScatter = (props: { gender: string }) => {
     });
   }
 
-  console.log(userPointsByAge);
-
   return (
     <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
       <h2 className="text-l font-bold tracking-tight text-slate-800">Points by Age</h2>
